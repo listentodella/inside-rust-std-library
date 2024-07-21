@@ -2,7 +2,7 @@
 
 ## 编译器内置Trait代码分析
 代码路径：
-%USER%\.rustup\toolchains\nightly-x86_64-pc-windows-msvc\lib\rustlib\src\rust\library\core\src\marker.rs
+~/.rustup/toolchains/VERSION/lib/rustlib/src/rust/library/core/src/marker.rs
 
 marker trait是没有实现体，是一种特殊的类型性质，这类性质无法用类型成员来表达，因此用trait来实现是最合适的。
 
@@ -126,7 +126,7 @@ pub struct PhantomData<T: ?Sized>;
 ```
 ## ops 运算符 Trait 代码分析
 代码路径如下：
-%USER%\.rustup\toolchains\nightly-x86_64-pc-windows-msvc\lib\rustlib\src\rust\library\core\src\ops\*.rs
+~/.rustup/toolchains/VERSION/lib/rustlib/src/rust/library/core/src/ops/*.rs
 
 RUST中，所有的运算符号都可以重载。Ops重载允许提供*两个不同类型*之间的运算。
 ### 一个小规则
@@ -192,7 +192,7 @@ add_assign_impl! { usize u8 u16 u32 u64 u128 isize i8 i16 i32 i64 i128 f32 f64 }
 
 ### 关系运算符Trait
 代码路径如下：
-%USER%\.rustup\toolchains\nightly-x86_64-pc-windows-msvc\lib\rustlib\src\rust\library\core\src\cmp.rs
+~/.rustup/toolchains/VERSION/lib/rustlib/src/rust/library/core/src/cmp.rs
 
 关系运算符的代码稍微复杂，这里给出较完整的代码。
 ```rust
@@ -648,7 +648,7 @@ Result<T,E>类型的Try Trait请自行分析
 
 ### Range 运算符代码分析
 代码路径：  
-%USER%\.rustup\toolchains\nightly-x86_64-pc-windows-msvc\lib\rustlib\src\rust\library\core\src\ops\range.rs
+~/.rustup/toolchains/VERSION/lib/rustlib/src/rust/library/core/src/ops/range.rs
 
 Range是符号 .. , start..end , start.. , ..end , ..=end，start..=end 形式   
 代码书写虽然采用了上面的形式，但编译器将其转换成了不同的具体结构。如下：
@@ -762,7 +762,7 @@ Range操作符多用于与Index运算符结合或与Iterator Trait结合使用�
 
 ### RUST的Index 运算符代码分析
 代码路径：  
-%USER%\.rustup\toolchains\nightly-x86_64-pc-windows-msvc\lib\rustlib\src\rust\library\core\src\ops\index.rs
+~/.rustup/toolchains/VERSION/lib/rustlib/src/rust/library/core/src/ops/index.rs
 
 数组下标符号[]由Index, IndexMut两个Trait完成重载。数组下标符号重载使得程序更有可读性。两个Trait如下定义：
 ```rust

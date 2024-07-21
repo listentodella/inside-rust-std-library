@@ -1,6 +1,6 @@
 # RUST的Iterator实现代码分析 
 代码路径：  
-%USER%\.rustup\toolchains\nightly-x86_64-pc-windows-msvc\lib\rustlib\src\rust\library\core\src\iter\*.*  
+~/.rustup/toolchains/VERSION/lib/rustlib/src/rust/library/core/src/iter/*.*  
 
 Iterator在函数式编程中是居于最核心的地位。在函数式编程中，最关键的就是把问题的解决方式设计成能够使用Iterator方案来解决。RUST基本上可以说是原生的Iterator语言，几乎所有的核心关键复合类型都对Iterator作出实现。
 
@@ -148,7 +148,7 @@ pub trait Iterator {
 ## ops::Range类型的Iterator实现
 代码路径：  
 
-%USER%\.rustup\toolchains\nightly-x86_64-pc-windows-msvc\lib\rustlib\src\rust\library\core\src\iter\range.rs
+~/.rustup/toolchains/VERSION/lib/rustlib/src/rust/library/core/src/iter/range.rs
 
 Range被直接实现Iterator trait，没有用其他辅助结构。
 定义如下：
@@ -321,7 +321,7 @@ Range实现Iterator的代码不复杂，但是从类型转换及加减法的处�
 
 ## slice的Iterator实现
 代码路径：  
-%USER%\.rustup\toolchains\nightly-x86_64-pc-windows-msvc\lib\rustlib\src\rust\library\core\src\slice\iter.rs  
+~/.rustup/toolchains/VERSION/lib/rustlib/src/rust/library/core/src/slice/iter.rs  
 
 首先定义了适合&[T]的Iter结构：
 ```rust
