@@ -14,22 +14,22 @@ RUST语言核心库，适用于操作系统内核及用户态，包括RUST的基
 本节给出core库中的Trait一览
 
 #### 运算符（ops）Trait
-主要是各种用于表达式的RUST符号重载，包括算数计算符号，逻辑运算符号，位操作符号，解引用(*)符号, [index]数组下标符号， `../start..end/start../start..=end/..end/..=end` Range符号， ?号，||{..}闭包符号等，RUST原则是所有的运算符号都要能重载, 所以所有运算操作都定义了重载Trait。
+主要是各种用于表达式的RUST符号重载，包括算数计算符号，逻辑运算符号，位操作符号，解引用`*`符号, `[index]`数组下标符号， `../start..end/start../start..=end/..end/..=end` Range符号， `?`号，`||{..}`闭包符号等，RUST原则是所有的运算符号都要能重载, 所以所有运算操作都定义了重载Trait。
 
 #### 编译器内部实现的派生宏 Trait
 如果类型结构中的每一个变量都实现了该Trait, 则此结构的该Trait可通过派生宏实现.  
-Clone, Copy: Copy浅复制，Clone提供深复制.    
-Debug: 类型的格式化输出.    
-Default: 类型的default值      
-Eq, Ord，PartialEQ, PartialOrd: 实现后可以对类型的变量做大,小,相等比较.    
-Sync, Send: 实现此Trait的类型变量的引用可以安全在线程间共享.    
-Hash: 实现结构的整体Hash值，这个Trait Hash是因为复杂才被加入，意义没有前面的大   
+`Clone`, `Copy`: `Copy`浅复制，`Clone`提供深复制.    
+`Debug`: 类型的格式化输出.    
+`Default`: 类型的default值      
+`Eq`, `Ord`，`PartialEQ`, `PartialOrd`: 实现后可以对类型的变量做大,小,相等比较.    
+`Sync`, `Send`: 实现此Trait的类型变量的引用可以安全在线程间共享.    
+`Hash`: 实现结构的整体Hash值，这个Trait Hash是因为复杂才被加入，意义没有前面的大   
 
 #### Iterator
 迭代器，RUST基础构架之一，也是RUST所有学习资料的重点。不赘述，本书后面章节将关注其代码实现。
 
 #### 类型转换Trait
-AsRef， AsMut, From，Into，TryFrom，TryInto, FloatToInt, FromStr
+`AsRef`, `AsMut`, `From`, `Into`, `TryFrom`, `TryInto`, `FloatToInt`, `FromStr`
 
 #### 字符串Trait
 此处略，后面章节单独做分析
@@ -50,35 +50,37 @@ AsRef， AsMut, From，Into，TryFrom，TryInto, FloatToInt, FromStr
 RUST安全特性的重点，也是各种学习资料的重点，不赘述，后面章节将关注其一些代码实现
 
 ### RUST内存相关类型及内容
-alloc, mem, ptr等模块，RUST的内存操作，后继章节重点详述。
+`alloc`, `mem`, `ptr`等模块，RUST的内存操作，后继章节重点详述。
 
 ### RUST字符串相关库
-字符串str，string，fmt, panic, debug, log等
+字符串`str`，`String`，`fmt`, `panic`, `debug`, `log`等
 
 ### RUST时间库
-Duration等
+`Duration`等
 
 ## alloc库
 alloc库主要实现需要进行动态堆内存申请的智能指针类型，集合类型及他们的行为，函数，Trait等内容，仅建立在core库模块之上。std会对alloc模块库的内容做重新的封装。alloc库适用于操作系统内核及用户态程序。
 包括：
-1.基本内存申请；Allocator Trait; Allocator的实现结构Global
-2.基础智能指针：Box<T>, Rc<T>, 
-3.动态数组内存类型: RawVec<T>, Vec<T>
-4.字符串类型：&str, String
-5.并发编程指针类型: Arc<T>
-6.指针内访问类型: Cell<T>, RefCell<T>
+1. 基本内存申请；`Allocator` Trait; `Allocator`的实现结构`Global`
+2. 基础智能指针：`Box<T>`, `Rc<T>`, 
+3. 动态数组内存类型: `RawVec<T>`, `Vec<T>`
+4. 字符串类型：`&str`, `String`
+5. 并发编程指针类型: `Arc<T>`
+6. 指针内访问类型: `Cell<T>`, `RefCell<T>` 
+
 还有些其他类型，一般仅在标准库内部使用，后文在需要的时候再介绍及分析。
 
 ## std库
 std是在操作系统支撑下运行的只适用于用户态程序的库，core库实现的内容基本在std库也有对应的实现。其他内容主要是将操作系统系统调用封装为适合rust特征的结构和Trait,包括：
-1.进程，线程库
-2.网络库
-3.文件操作库
-4.环境变量及参数
-5.互斥与同步库，读写锁
-6.定时器
-7.输入输出的数据结构，
-8.系统事件，对epoll,kevent等的封装
+1. 进程，线程库
+2. 网络库
+3. 文件操作库
+4. 环境变量及参数
+5. 互斥与同步库，读写锁
+6. 定时器
+7. 输入输出的数据结构，
+8. 系统事件，对epoll,kevent等的封装
+
 可以将std库看做基本常用的容器类型及操作系统封装库。
 
 ## 小结
@@ -104,7 +106,7 @@ impl<T: ?Sized> BorrowMut<T> for T {
     }
 }
 ```
-以上代码对所有的类型都实现了Borrow<T>的trait。  
+以上代码对所有的类型都实现了`Borrow<T>`的trait。  
 直接针对泛型做方法和trait的实现是强大的工具，它的作用：  
 - 针对泛型的代码会更内聚，方法总比函数具备更明显的模块性    
 - 逻辑更清晰及系统化更好    
@@ -113,11 +115,32 @@ impl<T: ?Sized> BorrowMut<T> for T {
 
 ## 泛型的层次关系
 RUST的泛型从一般到特殊会形成一种层次结构，有些类似于面对对象的基类和子类关系：    
-最基层： `T:?Sized`  ?Sized的约束表明了所有的类型        
 
-一级子层： 默认内存空间固定类型`T`；裸指针类型`* const T/* mut T`; 切片类型`[T]`; 数组类型`[T;N]`; 引用类型`&T/&mut T`; trait约束类型`T:trait`; 泛型元组`(T, U...)`; 泛型复合类型`struct <T>; enum <T>; union<T>` 及具体类型 `u8/u16/i8/bool/f32/&str/String...`    
+- 最基层:
 
-二级子层： 对一级子层的T赋以具体类型 如：`* const u8; [i32]`，或者将一级子层中的T再次做一级子层的具化，例如：`* const [T]; [*const T]; &(*const T); * const T where T:trait; struct <T:trait>` 
+ `T:?Sized`  的约束表明了所有的类型, `?Size` 表明类型内存空间大小不固定，可以是任意大小
+
+- 一级子层: 
+
+默认内存空间固定类型`T`;
+
+裸指针类型`* const T`/`* mut T`; 
+
+切片类型`[T]`; 数组类型`[T;N]`; 
+
+引用类型`&T/&mut T`; 
+
+trait约束类型`T:trait`; 
+
+泛型元组`(T, U...)`; 
+
+泛型复合类型`struct <T>; enum <T>; union<T>` 及具体类型 `u8/u16/i8/bool/f32/&str/String...`    
+
+- 二级子层:  
+
+对一级子层的T赋以具体类型 如：`* const u8; [i32]`
+
+或者将一级子层中的T再次做一级子层的具化，例如：`* const [T]`; `[*const T]`; `&(*const T)`; `* const T where T:trait`; `struct <T:trait>` 
 
 可以一直递归下去。
 显然，针对基层类型实现的方法和trait可以应用到层级高的泛型类型中。
@@ -128,7 +151,7 @@ impl<T, U> Option<(T, U)> {...}
 impl<T: Copy> Option<&T> {...}
 impl<T: Default> Option<T> {...}
 ```
-以上是标准库对Option<T> 的不同泛型的方法实现定义。遵循了从一般到特殊的规则。  
+以上是标准库对`Option<T>` 的不同泛型的方法实现定义。遵循了从一般到特殊的规则。  
 
 类似的实现再试举如下几例：  
 ```rust
@@ -152,12 +175,12 @@ impl AsRef<str> for str {...}
 2. 引用必须是内存对齐的，引用指向的变量必须已经初始化；  
 3. 模块成员默认私有
 4. 严格的类型及类型无效值限制
-5. 基础类型都满足Copy/Send/Sync auto trait
+5. 基础类型都满足`Copy`/`Send`/`Sync` auto trait
 6. if及match的分支语法
 
 明确的不安全特性：   
 1. 裸指针解引用；   
-2. 线程间转移变量必须支持Send, 共享变量必须支持Sync
+2. 线程间转移变量必须支持`Send`, 共享变量必须支持`Sync`
 3. 所有的FFI调用,unsafe intrinsic函数调用
 4. 对类型产生无效类型值
 5. 嵌入式汇编使用
@@ -178,11 +201,11 @@ RUST的内存安全指的是编译器**提供基础设施**，程序员利用基
 RUST的安全本质上仍然是一批高水平程序员实现的一个语言安全框架。
 
 RUST官方语言库安全戏法的一些套路：  
-安全类型结构基本上是一个封装类型结构， 真正要操作的原始变量被封装在内，并且，此封装类型结构拥有原始变量的所有权。例如：RefCell<T>, 智能指针，Rc<T>，Arc<T>，Mutex<T>等。用于实现不同场景下的安全。  
-实现封装类型结构的Drop trait，完成生命周期结束时需要的清理操作，例如，释放堆内存，关闭文件描述符等    
-实现对封装类型结构的借用函数，对于复杂操作，往往需要一个额外的专用于借用的封装类型结构及可变借用的封装类型结构，如Ref<T>, RefMut<T>分别是RefCell的借用及可变借用的结构。不同的封装类型根据意义的不同会有不同的借用操作，如RefCell的borrow(), borrow_mut（）， Rc<T>的clone（）， Mutex<T>的lock()，但都是满足在某种安全机制下的获取原始变量的借用。  
-实现对于封装类型结构或者借用封装类型结构的Deref trait及 DerefMut trait，得到原始变量的引用或可变引用，从而实现对于原始结构的访问及更改。   
-实现对于借用封装类型的Drop trait，完成针对借用的清理工作，如减少计数，释放锁等。   
+安全类型结构基本上是一个封装类型结构， 真正要操作的原始变量被封装在内，并且，此封装类型结构拥有原始变量的所有权。例如：`RefCell<T>`, 智能指针，`Rc<T>`，`Arc<T>`，`Mutex<T>`等。用于实现不同场景下的安全。  
+实现封装类型结构的`Drop` trait，完成生命周期结束时需要的清理操作，例如，释放堆内存，关闭文件描述符等    
+实现对封装类型结构的借用函数，对于复杂操作，往往需要一个额外的专用于借用的封装类型结构及可变借用的封装类型结构，如`Ref<T>`, `RefMut<T>`分别是`RefCell`的借用及可变借用的结构。不同的封装类型根据意义的不同会有不同的借用操作，如`RefCell`的`borrow()`, `borrow_mut()`， `Rc<T>`的`clone()`， `Mutex<T>`的`lock()`，但都是满足在某种安全机制下的获取原始变量的借用。  
+实现对于封装类型结构或者借用封装类型结构的`Deref` trait及 `DerefMut` trait，得到原始变量的引用或可变引用，从而实现对于原始结构的访问及更改。   
+实现对于借用封装类型的`Drop` trait，完成针对借用的清理工作，如减少计数，释放锁等。   
 RUST的安全实际上都是由这些安全封装类型完成。可以说，每一个安全封装类型都是程序员的血汗得来的教训。
 
 从后继标准库的源代码分析中，可以真实的熟悉RUST的安全戏法。
